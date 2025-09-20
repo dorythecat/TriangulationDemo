@@ -48,10 +48,6 @@ function endDrag() {
     selectedCircle = null;
 }
 
-for (let circle of circles) {
-    circle.addEventListener('mousedown', startDrag);
-}
-
 // Touch support
 function startTouch(e) {
     e.preventDefault();
@@ -81,7 +77,13 @@ function endTouch() {
 }
 
 for (let circle of circles) {
+    circle.addEventListener('mousedown', startDrag);
     circle.addEventListener('touchstart', startTouch);
+
+    // Create and append ring element
+    let ring = document.createElement('div');
+    ring.className = 'ring';
+    circle.appendChild(ring);
 }
 
 // Initial ring update
