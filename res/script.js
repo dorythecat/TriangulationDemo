@@ -83,6 +83,7 @@ for (let circle of circles) {
     // Create and append ring element
     let ring = document.createElement('div');
     ring.className = 'ring';
+    ring.style.pointerEvents = 'none';
     circle.appendChild(ring);
 }
 
