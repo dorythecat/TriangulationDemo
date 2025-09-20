@@ -9,6 +9,7 @@ function startDrag(e) {
     offsetY = e.clientY - selectedCircle.getBoundingClientRect().top;
     document.addEventListener('mousemove', drag);
     document.addEventListener('mouseup', endDrag);
+    selectedCircle.classList.add('selected');
 }
 
 function drag(e) {
@@ -20,6 +21,7 @@ function drag(e) {
 function endDrag() {
     document.removeEventListener('mousemove', drag);
     document.removeEventListener('mouseup', endDrag);
+    selectedCircle.classList.remove('selected');
     selectedCircle = null;
 }
 
