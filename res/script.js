@@ -4,6 +4,25 @@ const circles = document.getElementsByClassName("circle");
 let selectedCircle = null;
 let offsetX, offsetY;
 
+// Update rings to be as big as the distance to the closest circle
+function updateRings() {
+    for (let ring of document.getElementsByClassName("ring")) {
+        const ringRect = ring.getBoundingClientRect();
+        const ringCenterX = ringRect.left + ringRect.width / 2;
+        const ringCenterY = ringRect.top + ringRect.height / 2;
+
+        let minDistance = Infinity;
+        for (let circle of circles) {
+            if (circle === ring.parentElement) continue;
+            const circleRect = circle.getBoundingClientRect();
+            const circleCenterX = circleRect.left + circleRect.width / 2;
+            const circleCenterY = circleRect.top + circleRect.height / 2;
+            const distance = Math.hypot(circleCenterX - ringCenterX, circleCenterY - ringCenterY);
+            if (distance < minDistance) minDistance = distance;
+        } ring.style.width = ring.style.height = `${minDistance * 2}px`;
+    }
+}
+
 // Mouse support
 function startDrag(e) {
     selectedCircle = e.target;
@@ -16,6 +35,7 @@ function startDrag(e) {
 
 function drag(e) {
     if (!selectedCircle) return;
+    updateRings();
     selectedCircle.style.left = `${e.clientX - offsetX}px`;
     selectedCircle.style.top = `${e.clientY - offsetY}px`;
 }
@@ -23,6 +43,7 @@ function drag(e) {
 function endDrag() {
     document.removeEventListener('mousemove', drag);
     document.removeEventListener('mouseup', endDrag);
+    updateRings();
     selectedCircle.classList.remove('selected');
     selectedCircle = null;
 }
@@ -45,6 +66,7 @@ function startTouch(e) {
 
 function touchDrag(e) {
     if (!selectedCircle) return;
+    updateRings();
     const touch = e.touches[0];
     selectedCircle.style.left = `${touch.clientX - offsetX}px`;
     selectedCircle.style.top = `${touch.clientY - offsetY}px`;
@@ -53,6 +75,7 @@ function touchDrag(e) {
 function endTouch() {
     document.removeEventListener('touchmove', touchDrag);
     document.removeEventListener('touchend', endTouch);
+    updateRings();
     selectedCircle.classList.remove('selected');
     selectedCircle = null;
 }
@@ -60,3 +83,6 @@ function endTouch() {
 for (let circle of circles) {
     circle.addEventListener('touchstart', startTouch);
 }
+
+// Initial ring update
+updateRings();
