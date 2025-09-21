@@ -1,9 +1,11 @@
 // Get references to DOM elements
 const circles = document.getElementsByClassName("circle");
 const text = document.getElementById("text");
+const nextButton = document.getElementById("nextButton");
 
 let texts = [ // Texts to display
-    "This is a circle. Try dragging it around."
+    "This is a circle. Try dragging it around.",
+    "Text 2"
 ];
 let currentText = -1; // Start at -1 so the first updateText call sets it to 0
 
@@ -19,6 +21,8 @@ function updateText() {
     currentText = (currentText + 1) % texts.length;
     text.innerText = texts[currentText];
 }
+
+nextButton.addEventListener('click', updateText);
 
 function updateConnections() {
     for (let circleID in ringConnections) {
