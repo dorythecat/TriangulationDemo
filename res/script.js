@@ -16,29 +16,6 @@ let ringConnections = {}
 let selectedCircle = null;
 let offsetX, offsetY;
 
-function updateText() {
-    currentText = (currentText + 1) % texts.length;
-    text.innerText = texts[currentText];
-
-    switch (currentText) {
-        case 1:
-            const circle = document.createElement('div');
-            circle.classList.add('circle');
-            circle.id = 'circle1';
-            circle.style.left = '50%';
-            circle.style.top = '50%';
-            document.body.appendChild(circle);
-            break;
-    }
-
-    for (let circle of document.getElementsByClassName('circle')) {
-        circle.addEventListener('mousedown', startDrag);
-        circle.addEventListener('touchstart', startTouch);
-    }
-}
-
-nextButton.addEventListener('click', updateText);
-
 function updateConnections() {
     for (let circleID in ringConnections) {
         let circle = document.getElementById(circleID);
@@ -134,6 +111,31 @@ function endTouch() {
     selectedCircle = null;
 }
 
-// Initial updates
-updateConnections();
+function updateText() {
+    currentText = (currentText + 1) % texts.length;
+    text.innerText = texts[currentText];
+
+    switch (currentText) {
+        case 1:
+            const circle = document.createElement('div');
+            circle.classList.add('circle');
+            circle.id = 'circle1';
+            circle.style.left = '50%';
+            circle.style.top = '50%';
+            document.body.appendChild(circle);
+            break;
+    }
+
+    // Update circles
+    for (let circle of document.getElementsByClassName('circle')) {
+        circle.addEventListener('mousedown', startDrag);
+        circle.addEventListener('touchstart', startTouch);
+    }
+
+    updateConnections(); // Connection update
+}
+
+nextButton.addEventListener('click', updateText); // Next button click event
+
+// Initial text update
 updateText();
