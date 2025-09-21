@@ -146,7 +146,6 @@ function updateText() {
             break;
         case 3:
             lineConnections['circle1'] = ['circle2'];
-            ringConnections['circle1'] = ['circle2'];
             break;
     }
 
