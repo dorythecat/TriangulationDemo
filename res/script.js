@@ -7,6 +7,14 @@ let texts = [ // Texts to display
     "This is a circle. Try dragging it around!",
     "Now we have two circles!",
     "And now they are connected with a line! The distance between them is shown below the line.",
+    "Now we have a third point. Now, if we want to know the position of this point, how would you do it?",
+    "We could take the distance to both points...",
+    "...which means the point must be somewhere on this circle...",
+    "...and this circle, which gives us two possible positions for the point.",
+    "By adding a fourth point...",
+    "...we eliminate the ambiguity! (As long as the three points aren't collinear)",
+    "You can extend this to 3D space by noticing that the intersection of two spheres is a circle!",
+    "Now, play around and have some fun with the points! :D"
 ];
 let currentText = -1; // Start at -1 so the first updateText call sets it to 0
 
@@ -154,6 +162,33 @@ function updateText() {
         case 3:
             lineConnections['circle1'] = ['circle2'];
             break;
+        case 4:
+            const circle3 = document.createElement('div');
+            circle3.classList.add('circle');
+            circle3.id = 'circle3';
+            circle3.style.left = '60%';
+            circle3.style.top = '30%';
+            document.body.appendChild(circle3);
+            break;
+        case 5:
+            lineConnections['circle3'] = ['circle1', 'circle2'];
+            break;
+        case 6:
+            ringConnections['circle1'] = ['circle3'];
+            break;
+        case 7:
+            ringConnections['circle2'] = ['circle3'];
+            break;
+        case 8:
+            const circle4 = document.createElement('div');
+            circle4.classList.add('circle');
+            circle4.id = 'circle4';
+            circle4.style.left = '80%';
+            circle4.style.top = '30%';
+            document.body.appendChild(circle4);
+            break;
+        case 9:
+            ringConnections['circle4'] = ['circle3'];
     }
 
     // Update circles
