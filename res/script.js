@@ -1,5 +1,4 @@
 const circles = document.getElementsByClassName("circle");
-const rings = document.getElementsByClassName("ring");
 
 const ringConnections = {
     "circle1": ["circle2", "circle3"],
