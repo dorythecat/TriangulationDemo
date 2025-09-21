@@ -2,8 +2,8 @@ const circles = document.getElementsByClassName("circle");
 const rings = document.getElementsByClassName("ring");
 
 const ringConnections = {
-    "circle1": ["circle2"],
-    "circle2": ["circle1"]
+    "circle1": ["circle2", "circle3"],
+    "circle2": ["circle1", "circle3"]
 }
 
 let selectedCircle = null;
@@ -12,16 +12,14 @@ let offsetX, offsetY;
 function updateRings() {
     for (let circleID in ringConnections) {
         let circle = document.getElementById(circleID);
+        for (let ring of circle.getElementsByClassName('ring')) circle.removeChild(ring);
 
         for (let targetID of ringConnections[circleID]) {
-            let ring = circle.querySelector('.ring');
-            if (!ring) {
-                // Create ring if it doesn't exist
-                ring = document.createElement('div');
-                ring.className = 'ring';
-                ring.style.pointerEvents = 'none';
-                circle.appendChild(ring);
-            }
+            // Create ring if it doesn't exist
+            let ring = document.createElement('div');
+            ring.className = 'ring';
+            ring.style.pointerEvents = 'none';
+            circle.appendChild(ring);
 
             let rect1 = circle.getBoundingClientRect();
             let rect2 = document.getElementById(targetID).getBoundingClientRect();
