@@ -1,14 +1,17 @@
+// Get references to DOM elements
 const circles = document.getElementsByClassName("circle");
 const text = document.getElementById("text");
 
-let texts = [
+let texts = [ // Texts to display
     "This is a circle. Try dragging it around."
 ];
-let currentText = -1;
+let currentText = -1; // Start at -1 so the first updateText call sets it to 0
 
+// Define connections between circles
 let lineConnections = {}
 let ringConnections = {}
 
+// Variables for dragging
 let selectedCircle = null;
 let offsetX, offsetY;
 
