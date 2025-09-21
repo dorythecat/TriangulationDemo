@@ -1,10 +1,21 @@
 const circles = document.getElementsByClassName("circle");
+const text = document.getElementById("text");
+
+let texts = [
+    "This is a circle. Try dragging it around."
+];
+let currentText = -1;
 
 let lineConnections = {}
 let ringConnections = {}
 
 let selectedCircle = null;
 let offsetX, offsetY;
+
+function updateText() {
+    currentText = (currentText + 1) % texts.length;
+    text.innerText = texts[currentText];
+}
 
 function updateConnections() {
     for (let circleID in ringConnections) {
@@ -106,5 +117,6 @@ for (let circle of circles) {
     circle.addEventListener('touchstart', startTouch);
 }
 
-// Initial ring update
+// Initial updates
 updateConnections();
+updateText();
