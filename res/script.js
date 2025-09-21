@@ -4,8 +4,8 @@ const text = document.getElementById("text");
 const nextButton = document.getElementById("nextButton");
 
 let texts = [ // Texts to display
-    "This is a circle. Try dragging it around.",
-    "Text 2"
+    "Welcome to the triangulation demonstration!",
+    "This is a circle. Try dragging it around!"
 ];
 let currentText = -1; // Start at -1 so the first updateText call sets it to 0
 
@@ -20,6 +20,17 @@ let offsetX, offsetY;
 function updateText() {
     currentText = (currentText + 1) % texts.length;
     text.innerText = texts[currentText];
+
+    switch (currentText) {
+        case 1:
+            const circle = document.createElement('div');
+            circle.classList.add('circle');
+            circle.id = 'circle1';
+            circle.style.left = '50%';
+            circle.style.top = '50%';
+            document.body.appendChild(circle);
+            break;
+    }
 }
 
 nextButton.addEventListener('click', updateText);
