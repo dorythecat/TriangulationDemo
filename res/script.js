@@ -62,7 +62,7 @@ function updateConnections() {
 
             const rect1 = circle.getBoundingClientRect();
             const rect2 = document.getElementById(targetID).getBoundingClientRect();
-            const distance = Math.hypot(rect2.left - rect1.left, rect2.top - rect1.top);
+            const distance = Math.hypot(rect2.left - rect1.left, rect2.top - rect1.top) * 2;
             ring.style.width = ring.style.height = `${distance}px`;
         }
     }
