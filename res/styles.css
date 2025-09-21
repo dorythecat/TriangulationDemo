@@ -39,6 +39,16 @@ body {
     border: 2px solid white;
 }
 
+#nextButton {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    transform: translateX(-50%);
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
 #circle1 {
     background-color: blue;
 }
@@ -53,4 +63,13 @@ body {
 
 #circle4 {
     background-color: yellow;
+}
+
+@media (max-width: 600px) {
+    #nextButton {
+        font-size: 14px;
+        padding: 8px 16px;
+        left: 50%;
+        bottom: 10px;
+    }
 }
