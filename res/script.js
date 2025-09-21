@@ -29,10 +29,6 @@ function updateConnections() {
             line.style.pointerEvents = 'none';
             circle.appendChild(line);
 
-            const lineText = document.createElement('div');
-            lineText.innerText = 'Connected';
-            line.appendChild(lineText);
-
             const rect1 = circle.getBoundingClientRect();
             const rect2 = document.getElementById(targetID).getBoundingClientRect();
 
@@ -45,6 +41,10 @@ function updateConnections() {
             line.style.transformOrigin = '0 50%';
             line.style.left = `${rect1.width / 2}px`;
             line.style.top = `${rect1.height / 2}px`;
+
+            const lineText = document.createElement('div');
+            lineText.textContent = `${distance.toFixed(0)}px`;
+            line.appendChild(lineText);
 
             lineText.style.position = 'absolute';
             lineText.style.left = `${distance / 2}px`;
