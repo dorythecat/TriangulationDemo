@@ -24,16 +24,16 @@ function updateConnections() {
         for (let line of circle.getElementsByClassName('line')) circle.removeChild(line);
 
         for (let targetID of lineConnections[circleID]) {
-            let line = document.createElement('div');
+            const line = document.createElement('div');
             line.className = 'line';
             line.style.pointerEvents = 'none';
             circle.appendChild(line);
 
-            let rect1 = circle.getBoundingClientRect();
-            let rect2 = document.getElementById(targetID).getBoundingClientRect();
+            const rect1 = circle.getBoundingClientRect();
+            const rect2 = document.getElementById(targetID).getBoundingClientRect();
 
-            let angle = Math.atan2(rect2.top - rect1.top, rect2.left - rect1.left) * 180 / Math.PI;
-            let distance = Math.hypot(rect2.left - rect1.left, rect2.top - rect1.top);
+            const angle = Math.atan2(rect2.top - rect1.top, rect2.left - rect1.left) * 180 / Math.PI;
+            const distance = Math.hypot(rect2.left - rect1.left, rect2.top - rect1.top);
 
             line.style.width = `${distance}px`;
             line.style.transform = `rotate(${angle}deg)`;
@@ -48,14 +48,14 @@ function updateConnections() {
         for (let ring of circle.getElementsByClassName('ring')) circle.removeChild(ring);
 
         for (let targetID of ringConnections[circleID]) {
-            let ring = document.createElement('div');
+            const ring = document.createElement('div');
             ring.className = 'ring';
             ring.style.pointerEvents = 'none';
             circle.appendChild(ring);
 
-            let rect1 = circle.getBoundingClientRect();
-            let rect2 = document.getElementById(targetID).getBoundingClientRect();
-            let distance = Math.hypot(rect2.left - rect1.left, rect2.top - rect1.top);
+            const rect1 = circle.getBoundingClientRect();
+            const rect2 = document.getElementById(targetID).getBoundingClientRect();
+            const distance = Math.hypot(rect2.left - rect1.left, rect2.top - rect1.top);
             ring.style.width = ring.style.height = `${distance}px`;
         }
     }
