@@ -6,7 +6,7 @@ let texts = [ // Texts to display
     "Welcome to the triangulation demonstration!",
     "This is a circle. Try dragging it around!",
     "Now we have two circles!",
-    "And now they are connected with a line!"
+    "And now they are connected with a line! The distance between them is shown below the line.",
 ];
 let currentText = -1; // Start at -1 so the first updateText call sets it to 0
 
