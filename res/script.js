@@ -1,12 +1,12 @@
-// Dragging circles with mouse and touch support
 const circles = document.getElementsByClassName("circle");
+const rings = document.getElementsByClassName("ring");
 
 let selectedCircle = null;
 let offsetX, offsetY;
 
 // Update rings to be as big as the distance to the closest circle
 function updateRings() {
-    for (let ring of document.getElementsByClassName("ring")) {
+    for (let ring of rings) {
         const ringRect = ring.getBoundingClientRect();
         const ringCenterX = ringRect.left + ringRect.width / 2;
         const ringCenterY = ringRect.top + ringRect.height / 2;
@@ -22,6 +22,8 @@ function updateRings() {
         } ring.style.width = ring.style.height = `${minDistance * 2}px`;
     }
 }
+
+// Dragging circles with mouse and touch support
 
 // Mouse support
 function startDrag(e) {
