@@ -1,25 +1,34 @@
 const circles = document.getElementsByClassName("circle");
 const rings = document.getElementsByClassName("ring");
 
+const ringConnections = {
+    "circle1": ["circle2"],
+    "circle2": ["circle1"]
+}
+
 let selectedCircle = null;
 let offsetX, offsetY;
 
-// Update rings to be as big as the distance to the closest circle
 function updateRings() {
-    for (let ring of rings) {
-        const ringRect = ring.getBoundingClientRect();
-        const ringCenterX = ringRect.left + ringRect.width / 2;
-        const ringCenterY = ringRect.top + ringRect.height / 2;
+    for (let circleID in ringConnections) {
+        let circle = document.getElementById(circleID);
 
-        let minDistance = Infinity;
-        for (let circle of circles) {
-            if (circle === ring.parentElement) continue;
-            const circleRect = circle.getBoundingClientRect();
-            const circleCenterX = circleRect.left + circleRect.width / 2;
-            const circleCenterY = circleRect.top + circleRect.height / 2;
-            const distance = Math.hypot(circleCenterX - ringCenterX, circleCenterY - ringCenterY);
-            if (distance < minDistance) minDistance = distance;
-        } ring.style.width = ring.style.height = `${minDistance * 2}px`;
+        for (let targetID of ringConnections[circleID]) {
+            let ring = circle.querySelector('.ring');
+            if (!ring) {
+                // Create ring if it doesn't exist
+                ring = document.createElement('div');
+                ring.className = 'ring';
+                ring.style.pointerEvents = 'none';
+                circle.appendChild(ring);
+            }
+
+            let rect1 = circle.getBoundingClientRect();
+            let rect2 = document.getElementById(targetID).getBoundingClientRect();
+
+            let distance = Math.hypot(rect2.left - rect1.left, rect2.top - rect1.top) * 2;
+            ring.style.width = ring.style.height = `${distance}px`;
+        }
     }
 }
 
@@ -81,12 +90,6 @@ function endTouch() {
 for (let circle of circles) {
     circle.addEventListener('mousedown', startDrag);
     circle.addEventListener('touchstart', startTouch);
-
-    // Create and append ring element
-    let ring = document.createElement('div');
-    ring.className = 'ring';
-    ring.style.pointerEvents = 'none';
-    circle.appendChild(ring);
 }
 
 // Initial ring update
