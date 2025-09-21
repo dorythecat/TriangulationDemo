@@ -1,5 +1,4 @@
 // Get references to DOM elements
-const circles = document.getElementsByClassName("circle");
 const text = document.getElementById("text");
 const nextButton = document.getElementById("nextButton");
 
@@ -30,6 +29,11 @@ function updateText() {
             circle.style.top = '50%';
             document.body.appendChild(circle);
             break;
+    }
+
+    for (let circle of document.getElementsByClassName('circle')) {
+        circle.addEventListener('mousedown', startDrag);
+        circle.addEventListener('touchstart', startTouch);
     }
 }
 
@@ -128,11 +132,6 @@ function endTouch() {
     updateConnections();
     selectedCircle.classList.remove('selected');
     selectedCircle = null;
-}
-
-for (let circle of circles) {
-    circle.addEventListener('mousedown', startDrag);
-    circle.addEventListener('touchstart', startTouch);
 }
 
 // Initial updates
