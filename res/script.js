@@ -1,20 +1,46 @@
 const circles = document.getElementsByClassName("circle");
 
+const lineConnections = {
+    "circle1": ["circle2"],
+    "circle2": [],
+    "circle3": ["circle1", "circle2"]
+}
+
 const ringConnections = {
-    "circle1": ["circle2", "circle3"],
-    "circle2": ["circle1", "circle3"]
+    "circle1": ["circle3"],
+    "circle2": ["circle3"],
+    "circle3": []
 }
 
 let selectedCircle = null;
 let offsetX, offsetY;
 
-function updateRings() {
+function updateConnections() {
     for (let circleID in ringConnections) {
         let circle = document.getElementById(circleID);
+        for (let line of circle.getElementsByClassName('line')) circle.removeChild(line);
         for (let ring of circle.getElementsByClassName('ring')) circle.removeChild(ring);
 
+        for (let targetID of lineConnections[circleID]) {
+            let line = document.createElement('div');
+            line.className = 'line';
+            line.style.pointerEvents = 'none';
+            circle.appendChild(line);
+
+            let rect1 = circle.getBoundingClientRect();
+            let rect2 = document.getElementById(targetID).getBoundingClientRect();
+
+            let angle = Math.atan2(rect2.top - rect1.top, rect2.left - rect1.left) * 180 / Math.PI;
+            let distance = Math.hypot(rect2.left - rect1.left, rect2.top - rect1.top);
+
+            line.style.width = `${distance}px`;
+            line.style.transform = `rotate(${angle}deg)`;
+            line.style.transformOrigin = '0 50%';
+            line.style.left = `${rect1.width / 2}px`;
+            line.style.top = `${rect1.height / 2}px`;
+        }
+
         for (let targetID of ringConnections[circleID]) {
-            // Create ring if it doesn't exist
             let ring = document.createElement('div');
             ring.className = 'ring';
             ring.style.pointerEvents = 'none';
@@ -43,7 +69,7 @@ function startDrag(e) {
 
 function drag(e) {
     if (!selectedCircle) return;
-    updateRings();
+    updateConnections();
     selectedCircle.style.left = `${e.clientX - offsetX}px`;
     selectedCircle.style.top = `${e.clientY - offsetY}px`;
 }
@@ -51,7 +77,7 @@ function drag(e) {
 function endDrag() {
     document.removeEventListener('mousemove', drag);
     document.removeEventListener('mouseup', endDrag);
-    updateRings();
+    updateConnections();
     selectedCircle.classList.remove('selected');
     selectedCircle = null;
 }
@@ -70,7 +96,7 @@ function startTouch(e) {
 
 function touchDrag(e) {
     if (!selectedCircle) return;
-    updateRings();
+    updateConnections();
     const touch = e.touches[0];
     selectedCircle.style.left = `${touch.clientX - offsetX}px`;
     selectedCircle.style.top = `${touch.clientY - offsetY}px`;
@@ -79,7 +105,7 @@ function touchDrag(e) {
 function endTouch() {
     document.removeEventListener('touchmove', touchDrag);
     document.removeEventListener('touchend', endTouch);
-    updateRings();
+    updateConnections();
     selectedCircle.classList.remove('selected');
     selectedCircle = null;
 }
@@ -90,4 +116,4 @@ for (let circle of circles) {
 }
 
 // Initial ring update
-updateRings();
+updateConnections();
