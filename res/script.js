@@ -4,7 +4,8 @@ const nextButton = document.getElementById("nextButton");
 
 let texts = [ // Texts to display
     "Welcome to the triangulation demonstration!",
-    "This is a circle. Try dragging it around!"
+    "This is a circle. Try dragging it around!",
+    "Now we have two circles!"
 ];
 let currentText = -1; // Start at -1 so the first updateText call sets it to 0
 
@@ -124,6 +125,13 @@ function updateText() {
             circle.style.top = '50%';
             document.body.appendChild(circle);
             break;
+        case 2:
+            const circle2 = document.createElement('div');
+            circle2.classList.add('circle');
+            circle2.id = 'circle2';
+            circle2.style.left = '70%';
+            circle2.style.top = '50%';
+            document.body.appendChild(circle2);
     }
 
     // Update circles
