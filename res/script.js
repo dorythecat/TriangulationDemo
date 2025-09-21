@@ -196,12 +196,8 @@ function updateText() {
     for (let circle of document.getElementsByClassName('circle')) {
         circle.addEventListener('mousedown', startDrag);
         circle.addEventListener('touchstart', startTouch);
-    }
-
-    updateConnections(); // Connection update
+    } updateConnections(); // Connection update
 }
 
 nextButton.addEventListener('click', updateText); // Next button click event
-
-// Initial text update
-updateText();
+updateText(); // Initial text update
