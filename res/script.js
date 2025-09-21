@@ -1,18 +1,7 @@
 const circles = document.getElementsByClassName("circle");
 
-const lineConnections = {
-    "circle1": ["circle2", "circle3"],
-    "circle2": ["circle3"],
-    "circle3": [],
-    "circle4": ["circle1", "circle2", "circle3"]
-}
-
-const ringConnections = {
-    "circle1": ["circle4"],
-    "circle2": ["circle4"],
-    "circle3": ["circle4"],
-    "circle4": []
-}
+let lineConnections = {}
+let ringConnections = {}
 
 let selectedCircle = null;
 let offsetX, offsetY;
