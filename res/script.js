@@ -189,6 +189,7 @@ function updateText() {
             break;
         case 9:
             ringConnections['circle4'] = ['circle3'];
+            break;
     }
 
     // Update circles
