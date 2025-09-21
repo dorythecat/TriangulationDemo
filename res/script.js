@@ -130,7 +130,8 @@ function endTouch() {
 }
 
 function updateText() {
-    currentText = (currentText + 1) % texts.length;
+    currentText++;
+    if (currentText === texts.length - 1) nextButton.style.display = 'none';
     text.innerText = texts[currentText];
 
     switch (currentText) {
