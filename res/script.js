@@ -46,7 +46,13 @@ function updateConnections() {
             line.style.left = `${rect1.width / 2}px`;
             line.style.top = `${rect1.height / 2}px`;
 
+            lineText.style.position = 'absolute';
             lineText.style.left = `${distance / 2}px`;
+            lineText.style.transform = 'translate(-50%)';
+            if (Math.abs(angle) > 90) {
+                lineText.style.transform = 'translate(-50%) rotate(180deg)';
+                lineText.style.top = '-20px';
+            }
         }
     }
 
