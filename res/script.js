@@ -18,10 +18,9 @@ let selectedCircle = null;
 let offsetX, offsetY;
 
 function updateConnections() {
-    for (let circleID in ringConnections) {
+    for (let circleID in lineConnections) {
         let circle = document.getElementById(circleID);
         for (let line of circle.getElementsByClassName('line')) circle.removeChild(line);
-        for (let ring of circle.getElementsByClassName('ring')) circle.removeChild(ring);
 
         for (let targetID of lineConnections[circleID]) {
             let line = document.createElement('div');
@@ -41,6 +40,11 @@ function updateConnections() {
             line.style.left = `${rect1.width / 2}px`;
             line.style.top = `${rect1.height / 2}px`;
         }
+    }
+
+    for (let circleID in ringConnections) {
+        let circle = document.getElementById(circleID);
+        for (let ring of circle.getElementsByClassName('ring')) circle.removeChild(ring);
 
         for (let targetID of ringConnections[circleID]) {
             let ring = document.createElement('div');
@@ -50,8 +54,7 @@ function updateConnections() {
 
             let rect1 = circle.getBoundingClientRect();
             let rect2 = document.getElementById(targetID).getBoundingClientRect();
-
-            let distance = Math.hypot(rect2.left - rect1.left, rect2.top - rect1.top) * 2;
+            let distance = Math.hypot(rect2.left - rect1.left, rect2.top - rect1.top);
             ring.style.width = ring.style.height = `${distance}px`;
         }
     }
